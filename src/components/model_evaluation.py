@@ -16,7 +16,7 @@ class EvaluateModelResponse:
   trained_model_f1_score: float
   best_model_f1_score: float
   is_model_accepted: bool
-  differnce: float
+  difference: float
   
   
 class ModelEvaluation:
@@ -113,7 +113,7 @@ class ModelEvaluation:
       raise MyException(e, sys)
     
   
-  def initiae_model_evaluation(self) -> ModelEvaluationArtifact:
+  def initiate_model_evaluation(self) -> ModelEvaluationArtifact:
     
     try:
         print("-------------------------------")
@@ -125,7 +125,7 @@ class ModelEvaluation:
           is_model_accepted= evaluate_model_response.is_model_accepted,
           s3_model_path= s3_model_path,
           trained_model_path= self.model_trainer_artifact.trained_model_file_path,
-          changed_accuracy= evaluate_model_response.differnce
+          changed_accuracy= evaluate_model_response.difference
         ) 
         
         logging.info(f"Model evaluation artifact: {model_evaluation_artifact}")

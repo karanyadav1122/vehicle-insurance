@@ -38,7 +38,7 @@ class VehicleData:
     
   def get_vehicle_input_data_frame(self) -> DataFrame:
     try:
-        vehicle_input_dict = self.get_vehicle_input_data_as_dict()
+        vehicle_input_dict = self.get_vehicle_data_as_dict()
         return DataFrame(vehicle_input_dict)
       
     except Exception as e:

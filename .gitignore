@@ -163,3 +163,21 @@ cython_debug/
 
 artifact.env
 artifact/
+
+# AWS / credentials / local binaries
+aws/
+awscliv2.zip
+.aws/
+*.pem
+
+# Project artifacts
+logs/
+*.log
+*.pkl
+*.dill
+*.joblib
+*.csv
+
+# OS / editor
+.DS_Store
+.vscode/

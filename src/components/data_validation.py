@@ -18,7 +18,7 @@ class DataValidation:
     try:
         self.data_ingestion_artifact = data_ingestion_artifact
         self.data_validation_config = data_validation_config
-        self.schema_config = read_yaml_file(file_path = SCHEMA_FILE_PATH)
+        self._schema_config = read_yaml_file(file_path = SCHEMA_FILE_PATH)
         
     except Exception as e:
       raise MyException(e, sys)
@@ -104,7 +104,7 @@ class DataValidation:
         data_validation_artifact = DataValidationArtifact(
           validation_status= validation_status,
           message = validation_error_msg,
-          validation_report_file_path= self.data_validation.validation_report_file_path
+          validation_report_file_path= self.data_validation_config.validation_report_file_path
         )
         
         report_dir = os.path.dirname(self.data_validation_config.validation_report_file_path)

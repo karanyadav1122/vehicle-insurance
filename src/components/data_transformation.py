@@ -15,36 +15,36 @@ from src.utils.main_utils  import save_object, save_numpy_array_data, read_yaml_
 
 class DataTransformation:
   
-  def __init__(self, data_ingestion_artifact: DataIngestionArtifact,
+    def __init__(self, data_ingestion_artifact: DataIngestionArtifact,
                data_transformation_config: DataTransformationConfig,
                data_validation_artifact: DataValidationArtifact):
     
-    try:
-        self.data_ingestion_artifact = data_ingestion_artifact
-        self.data_transformation_config = data_transformation_config
-        self.data_validation_artifact = data_validation_artifact
-        self.schema_config= read_yaml_file(file_path = SCHEMA_FILE_PATH)
+        try:
+            self.data_ingestion_artifact = data_ingestion_artifact
+            self.data_transformation_config = data_transformation_config
+            self.data_validation_artifact = data_validation_artifact
+            self._schema_config= read_yaml_file(file_path = SCHEMA_FILE_PATH)
         
-    except Exception as e:
-      raise MyException(e, sys)
+        except Exception as e:
+            raise MyException(e, sys)
     
     @staticmethod
     def read_data(file_path) -> pd.DataFrame:
-      try:
+        try:
           return pd.read_csv(file_path)
-      except Exception as e:
-        raise MyException(e, sys)
+        except Exception as e:
+            raise MyException(e, sys)
       
     def get_data_transformer_object(self) -> Pipeline:
-      logging.info("Entered get_data_transformer object method of DataTransformation class")
+        logging.info("Entered get_data_transformer object method of DataTransformation class")
       
-      try:
+        try:
           numeric_transformer= StandardScaler()
           min_max_scaler = MinMaxScaler()
           logging.info("Transformers initialized : Standard Scaler-MinMax scaler")
           
-          num_features = self._schema_config(['num_features'])
-          mm_columns = self._schema_config(['mm_columns'])
+          num_features = self._schema_config['num_features']
+          mm_columns = self._schema_config['mm_columns']
           logging.info('Cols loaded from schema')
           
           preprocessor = ColumnTransformer(
@@ -55,13 +55,13 @@ class DataTransformation:
           )
           
            
-          final_pipeline = Pipeline(steps=['Preprocessor',preprocessor])
+          final_pipeline = Pipeline(steps=[('Preprocessor',preprocessor)])
           logging.info("Final Pipeline ready")
           logging.info("Exited data get_data_transformer_object method of DataTransformation class")
           return final_pipeline
       
-      except Exception as e:
-        raise MyException(e, sys) from e
+        except Exception as e:
+            raise MyException(e, sys) from e
       
     def _map_gender_column(self, df):
         """Map Gender column to 0 for Female and 1 for Male."""
